@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spatial", "Spatial.csproj", "{0E4DDC1C-AD40-4D40-BCB2-F0BCB7F70BD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E4DDC1C-AD40-4D40-BCB2-F0BCB7F70BD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E4DDC1C-AD40-4D40-BCB2-F0BCB7F70BD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E4DDC1C-AD40-4D40-BCB2-F0BCB7F70BD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E4DDC1C-AD40-4D40-BCB2-F0BCB7F70BD3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A81EF426-FB88-4F05-9039-A120F4509F8F}
+	EndGlobalSection
+EndGlobal

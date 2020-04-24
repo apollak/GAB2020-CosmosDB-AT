@@ -1,0 +1,102 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>6e483950-9a8a-4a0a-a09e-e4ff326f13f7</UserSecretsId>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>3.8</TypeScriptToolsVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\dist\**" />
+    <Content Remove="wwwroot\dist\**" />
+    <EmbeddedResource Remove="wwwroot\dist\**" />
+    <None Remove="wwwroot\dist\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ClientApp\app\components\app\app.css" />
+    <Content Include="ClientApp\app\components\app\app.html"/>
+    <Content Include="ClientApp\app\components\app\app.ts" />
+    <Content Include="ClientApp\app\components\app\icons.css" />
+    <Content Include="ClientApp\app\components\console\console.css" />
+    <Content Include="ClientApp\app\components\console\console.html" />
+    <Content Include="ClientApp\app\components\console\console.ts" />
+    <Content Include="ClientApp\app\components\floating\floating.css" />
+    <Content Include="ClientApp\app\components\floating\floating.html" />
+    <Content Include="ClientApp\app\components\guide\guide.css" />
+    <Content Include="ClientApp\app\components\guide\guide.html" />
+    <Content Include="ClientApp\app\components\guide\guide.ts" />
+    <Content Include="ClientApp\app\components\json-formatter\json-formatter.html" />
+    <Content Include="ClientApp\app\components\json-formatter\json-formatter.ts" />
+    <Content Include="ClientApp\app\components\modal\modal.css" />
+    <Content Include="ClientApp\app\components\modal\modal.html" />
+    <Content Include="ClientApp\app\components\network\network.css" />
+    <Content Include="ClientApp\app\components\network\network.html" />
+    <Content Include="ClientApp\app\components\network\network.ts" />
+    <Content Include="ClientApp\app\components\network\settings.ts" />
+    <Content Include="ClientApp\app\images\microsoft_logo.png" />
+    <Content Include="ClientApp\boot.ts" />
+    <Content Include="ClientApp\fonts\Commercial-Graph-Icons.ttf" />
+    <Content Include="ClientApp\fonts\segmdl2.ttf" />
+    <Content Include="ClientApp\vis\img\network\acceptDeleteIcon.png" />
+    <Content Include="ClientApp\vis\img\network\addNodeIcon.png" />
+    <Content Include="ClientApp\vis\img\network\backIcon.png" />
+    <Content Include="ClientApp\vis\img\network\connectIcon.png" />
+    <Content Include="ClientApp\vis\img\network\cross.png" />
+    <Content Include="ClientApp\vis\img\network\cross2.png" />
+    <Content Include="ClientApp\vis\img\network\deleteIcon.png" />
+    <Content Include="ClientApp\vis\img\network\downArrow.png" />
+    <Content Include="ClientApp\vis\img\network\editIcon.png" />
+    <Content Include="ClientApp\vis\img\network\leftArrow.png" />
+    <Content Include="ClientApp\vis\img\network\minus.png" />
+    <Content Include="ClientApp\vis\img\network\plus.png" />
+    <Content Include="ClientApp\vis\img\network\rightArrow.png" />
+    <Content Include="ClientApp\vis\img\network\upArrow.png" />
+    <Content Include="ClientApp\vis\img\network\zoomExtends.png" />
+    <Content Include="ClientApp\vis\vis.min.css" />
+    <Content Include="ClientApp\vis\vis.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Gremlin.Net" Version="3.4.6" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.8.0" />
+  </ItemGroup>
+
+  <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+
+    <!-- In development, the dist files won't exist on the first run or when cloning to
+				 a different machine, so rebuild them if not already present. -->
+    <Message Importance="high" Text="Performing first-run Webpack build..." />
+    <Exec Command="npm install" />
+    <Exec Command="npm ddp" />
+    <!--<Exec Command="npm run webpack:Debug" />-->
+  </Target>
+  
+  <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec Command="npm install" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --config webpack.config.vendor.js --env.prod" />
+    <Exec Command="node node_modules/webpack/bin/webpack.js --env.prod" />
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="wwwroot\dist\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+</Project>
+  
